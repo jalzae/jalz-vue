@@ -1,3 +1,3 @@
-import MyComponent from './MyComponent.vue';
+import Button from './components/Button.vue';
 
-export default MyComponent;
+export { Button };

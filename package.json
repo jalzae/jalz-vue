@@ -4,6 +4,7 @@
   "description": "Jalz vue component with automation and tailwind Css",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],

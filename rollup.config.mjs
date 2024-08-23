@@ -16,5 +16,7 @@ export default {
     }),
     resolve(),
     commonjs(),
-  ]
+
+  ],
+  external: ['vue'],
 };
