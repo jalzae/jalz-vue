@@ -1,0 +1,30 @@
+{
+  "name": "jalz-vue",
+  "version": "1.0.0",
+  "description": "Jalz vue component with automation and tailwind Css",
+  "main": "dist/bundle.js",
+  "module": "dist/bundle.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c --bundleConfigAsCjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "tailwindcss": "^3.4.10",
+    "vue": "^3.4.38"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "postcss": "^8.4.41",
+    "rollup": "^4.21.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0"
+  }
+}
