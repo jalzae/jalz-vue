@@ -11,4 +11,4 @@ import Paging from './components/Paging.vue';
 import Search from './components/Search.vue';
 import Table from './components/Table.vue';
 
-export { Button, ButtonList, Buttons, Card, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table };
+export default { Button, ButtonList, Buttons, Card, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table };
