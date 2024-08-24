@@ -5,8 +5,8 @@
     :class="kelas"
   >
     <span
-      :class="kelasjudul"
       class="w-2/3 text-white"
+      :class="kelasjudul"
     >{{ judul }}</span>
     <span class="w-1/3 text-center text-white">
       <i class="fas fa-right-long rounded-l-full rounded-r-full text-green-400 rounded-icon"></i>

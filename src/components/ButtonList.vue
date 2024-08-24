@@ -3,8 +3,8 @@
     <p
       v-for="items, index in list"
       :key="items.action"
-      :class="items.class"
       class="cursor-pointer text-amber-800"
+      :class="items.class"
       @click="$emit(items.action)"
     >
       <span
