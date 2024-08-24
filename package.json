@@ -1,6 +1,6 @@
 {
   "name": "jalz-vue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Jalz vue component with automation and tailwind Css",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
@@ -16,7 +16,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tinymce/tinymce-vue": "^6.0.1",
     "autoprefixer": "^10.4.20",
+    "nuxt3-leaflet": "^1.0.13",
     "tailwindcss": "^3.4.10",
     "vue": "^3.4.38"
   },

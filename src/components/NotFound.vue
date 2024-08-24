@@ -11,9 +11,6 @@
 <script lang='ts'>
 import { defineComponent } from "vue";
 export default defineComponent({
-  setup() {},
-  mixins: [],
-  components: {},
   props: {
     isImage: {
       type: Boolean,
@@ -28,10 +25,5 @@ export default defineComponent({
       default: "",
     },
   },
-  methods: {},
-  mounted() {},
-  computed: {},
-  watch: {},
-  created() {},
 });
 </script>

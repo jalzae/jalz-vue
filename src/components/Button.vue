@@ -31,13 +31,6 @@ export default defineComponent({
       this.$emit(this.action);
     },
   },
-  data() {
-    return {};
-  },
-  mounted() {},
-  computed: {},
-  watch: {},
-  created() {},
 });
 </script>
 
