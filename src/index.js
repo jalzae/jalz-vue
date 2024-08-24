@@ -10,5 +10,6 @@ import NotFound from './components/NotFound.vue';
 import Paging from './components/Paging.vue';
 import Search from './components/Search.vue';
 import Table from './components/Table.vue';
+import Modal from './components/Modal.vue';
 
-export default { Button, ButtonList, Buttons, Card, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table };
+export default { Button, ButtonList, Buttons, Card, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table,Modal };
