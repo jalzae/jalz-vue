@@ -1,6 +1,6 @@
 {
   "name": "jalz-vue",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Jalz vue component with automation and tailwind Css",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",

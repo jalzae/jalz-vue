@@ -40,7 +40,7 @@
 import NotFound from "./NotFound.vue";
 export default {
   props: {
-    show: { type: Boolean, default: false },
+    status: { type: Boolean, default: false },
     selected: {
       type: Object,
       default: {
