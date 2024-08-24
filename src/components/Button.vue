@@ -2,6 +2,7 @@
   <button
     @click="action()"
     class="bg-gradient-to-r from-lime-400 to-yellow-500 rounded-l-full rounded-r-full flex flex-row w-full justify-center items-center md:min-h-50  md:p-2"
+    :class="kelas"
   >
     <span
       :class="kelasjudul"
