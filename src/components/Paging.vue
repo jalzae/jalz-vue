@@ -27,9 +27,9 @@
     </button>
   </center>
 </template>
+
 <script>
-import { defineComponent } from "vue";
-export default defineComponent({
+export default{
   mixins: [],
   components: {},
   props: {
@@ -45,13 +45,7 @@ export default defineComponent({
       this.$emit("nextpage");
     },
   },
-  data() {
-    return {};
-  },
-  mounted() {},
-  computed: {},
-  watch: {},
-});
+}
 </script>
 
 <style>

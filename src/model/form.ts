@@ -2,7 +2,7 @@ export type Type = 'text' | 'editor' | 'readonly' | 'email' | 'textarea' | 'date
 
 export type validType = 'required' | 'noSpace' | 'email' | 'noSymbol' | 'numeric' | 'combinedValidation' | 'minLength'
 
-export type Form = {
+export type form = {
   model: string
   type: Type
   label: string

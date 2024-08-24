@@ -10,9 +10,9 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
+<script>
+
+export default{
   props: {
     status: {
       type: Boolean,
@@ -23,7 +23,7 @@ export default defineComponent({
       default: "",
     },
   },
-});
+}
 </script>
 
 <style>

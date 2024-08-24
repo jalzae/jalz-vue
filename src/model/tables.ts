@@ -26,7 +26,7 @@ type button = {
   status?: boolean
 }
 
-type Tables = {
+type tables = {
   header: headers[]
   body?: string[]
   action?: actions[]
@@ -39,5 +39,5 @@ type Tables = {
 }
 
 export type {
-  Tables, headers, actions, button
+  tables, headers, actions, button
 }

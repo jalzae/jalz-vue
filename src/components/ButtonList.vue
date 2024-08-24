@@ -20,14 +20,13 @@
   </div>
 </template>
 <script lang='ts'>
-import { defineComponent } from "vue";
-import { actions } from "../model/tables";
-export default defineComponent({
+
+export default {
   props: {
     list: {
-      type: Array as () => actions[],
+      type: Array ,
       default: [],
     },
   },
-});
+}
 </script>

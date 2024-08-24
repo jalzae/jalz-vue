@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-export default defineComponent({
+
+export default{
   props: {
     image: {
       type: String,
@@ -34,9 +34,5 @@ export default defineComponent({
     },
   },
   methods: {},
-});
+}
 </script>
-
-<style scoped>
-/* Your component-specific styling goes here */
-</style>

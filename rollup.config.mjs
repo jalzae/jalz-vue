@@ -19,4 +19,5 @@ export default {
 
   ],
   external: ['vue'],
+  context: 'window',
 };

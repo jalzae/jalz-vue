@@ -12,9 +12,9 @@
     </p>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
+<script>
+
+export default{
   props: {
     judul: String,
     deskripsi: String,
@@ -27,5 +27,5 @@ export default defineComponent({
       default: "",
     },
   },
-});
+}
 </script>

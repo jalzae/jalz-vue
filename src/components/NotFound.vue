@@ -8,9 +8,8 @@
     <p class="text-4xl text-center">Not Found Feature</p>
   </div>
 </template>
-<script lang='ts'>
-import { defineComponent } from "vue";
-export default defineComponent({
+<script>
+export default{
   props: {
     isImage: {
       type: Boolean,
@@ -25,5 +24,5 @@ export default defineComponent({
       default: "",
     },
   },
-});
+}
 </script>

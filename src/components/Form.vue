@@ -308,12 +308,11 @@
     <br />
   </form>
 </template>
-<script lang="ts">
-import { defineComponent } from "vue";
+<script>
+
 import Editor from "@tinymce/tinymce-vue";
 import Map from "./Map.vue";
-import { type Form as form } from "../model/form";
-export default defineComponent({
+export default{
   components: {
     Editor,
     Map,
@@ -324,7 +323,7 @@ export default defineComponent({
       default: {},
     },
     form: {
-      type: Array as () => form[],
+      type: Array,
       default: [],
     },
     action: {
@@ -356,24 +355,22 @@ export default defineComponent({
     moveLocation({ lat, lng }) {
       this.$emit("moveLocation", { lat, lng });
     },
-    async submit(e: any) {
-      e.preventDefault();
+    async submit() {
       this.$emit(this.action, this.selected);
     },
-    async change(action: string) {
+    async change(action) {
       this.$emit(action, this.selected);
     },
     async openGallery() {
-      this.modal.set("gallery");
-      this.modal.setTitle("Gallery");
+      this.$emit("openGallery");
     },
-    isNumber(event: any) {
+    isNumber(event) {
       const charCode = event.which ? event.which : event.keyCode;
       if (charCode > 31 && (charCode < 48 || charCode > 57)) {
         event.preventDefault();
       }
     },
-    focusOut(current: string, formatted: string, evt: any) {
+    focusOut(current, formatted, evt) {
       // Recalculate the currencyValue after ignoring "$" and "," in user input
       this.selected[current] = parseFloat(
         this.selected[formatted].replace(/[^\d\.]/g, "")
@@ -391,17 +388,17 @@ export default defineComponent({
       this.selected[formatted] = format;
       evt.target.value = format;
     },
-    focusIn(current: string, formatted: string, evt: any) {
+    focusIn(current, formatted, evt) {
       // Unformat display value before user starts modifying it
       const format = this.selected[current].toString();
       this.selected[formatted] = format;
       evt.target.value = format;
     },
     previewFiles(
-      model: string,
-      extension: string,
-      extArr: string[],
-      event: any
+      model,
+      extension,
+      extArr,
+      event
     ) {
       const file = event.target.files[0];
       const ext = file.name.split(".").pop().toLowerCase();
@@ -414,20 +411,20 @@ export default defineComponent({
       this.selected[extension] = ext;
     },
 
-    checkString(variable: any) {
+    checkString(variable) {
       let isString = typeof variable === "string";
       let isStringArray =
         Array.isArray(variable) &&
         variable.every((item) => typeof item === "string");
 
       if (isString) {
-        return variable as string;
+        return variable;
       } else if (isStringArray) {
-        return variable[variable.length - 1] as string;
+        return variable[variable.length - 1];
       }
     },
   },
-});
+}
 </script>
 
 <style scoped>

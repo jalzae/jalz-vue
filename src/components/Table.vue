@@ -155,16 +155,14 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { type Tables } from "../model/tables";
+<script>
 import Paging from "./Paging.vue";
-import { defineComponent } from "vue";
-export default defineComponent({
+export default{
   mixins: [],
   components: { Paging },
   props: {
     format: {
-      type: Object as () => Tables,
+      type: Object,
       required: true,
     },
     list: { type: Array, required: true },
@@ -182,30 +180,26 @@ export default defineComponent({
     nextpage() {
       this.$emit("nextpage");
     },
-    orderBy(index: number) {
+    orderBy(index) {
       this.format.header[index].cursor = !this.format.header[index].cursor;
     },
-    toggleDropdown(index: number) {
+    toggleDropdown(index) {
       if (this.isDropdownOpen === index) {
         this.isDropdownOpen = null;
       } else {
         this.isDropdownOpen = index;
       }
     },
-    closeDropdown(index: number) {
+    closeDropdown(index) {
       if (this.isDropdownOpen === index) {
         this.isDropdownOpen = null;
       }
     },
   },
-
-  mounted() {},
-  computed: {},
-  watch: {},
   async created() {
     for (let i of this.format.header) {
       i.cursor = true;
     }
   },
-});
+}
 </script>
