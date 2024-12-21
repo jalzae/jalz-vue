@@ -69,15 +69,7 @@
         v-else-if="item.type == 'html'"
         class="border border-gray-300 outline-none p-2 w-full mt-2"
       >
-        <client-only>
-          <button
-            type="button"
-            @click="openGallery"
-            class="rounded-sm text-white p-2 shadow-md bg-blue-500 m-4"
-          >
-            <i class="fas fa-image" />
-          </button>
-          <div class="divider"></div>
+       
           <Editor
             :api-key="tinyMceKey"
             v-model="selected[item.model]"
@@ -89,7 +81,7 @@
                 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code',
             }"
           />
-        </client-only>
+        
       </div>
       <!-- //type date -->
       <div v-else-if="item.type == 'date'">
