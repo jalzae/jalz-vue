@@ -79,7 +79,7 @@
           </button>
           <div class="divider"></div>
           <Editor
-            api-key="tinyMceKey"
+            :api-key="tinyMceKey"
             v-model="selected[item.model]"
             :init="{
               toolbar_mode: 'sliding',
@@ -309,10 +309,9 @@
   </form>
 </template>
 <script>
-
 import Editor from "@tinymce/tinymce-vue";
 import Map from "./Map.vue";
-export default{
+export default {
   components: {
     Editor,
     Map,
@@ -394,12 +393,7 @@ export default{
       this.selected[formatted] = format;
       evt.target.value = format;
     },
-    previewFiles(
-      model,
-      extension,
-      extArr,
-      event
-    ) {
+    previewFiles(model, extension, extArr, event) {
       const file = event.target.files[0];
       const ext = file.name.split(".").pop().toLowerCase();
       if (!extArr.find((e) => e == ext)) {
@@ -424,7 +418,7 @@ export default{
       }
     },
   },
-}
+};
 </script>
 
 <style scoped>
