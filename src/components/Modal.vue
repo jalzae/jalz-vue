@@ -9,16 +9,19 @@
         <div class="border-0 rounded-lg shadow-lg bg-white outline-none focus:outline-none">
           <!--header-->
           <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 class="text-3xl font-semibold">
+            <h3 :class="headClass">
               {{ selected.title ?? "Not Found" }}
             </h3>
             <button
-              class="text-red-500"
+              class="text-red-500 p-4"
               @click="close"
             >X</button>
           </div>
 
-          <div class="w-full h-full md:flex md:flex-row justify-center items-start p-8">
+          <div
+            :class="bodyClass"
+            class="w-full h-full p-8"
+          >
             <component :is="selected.component" />
           </div>
 
@@ -40,6 +43,8 @@
 import NotFound from "./NotFound.vue";
 export default {
   props: {
+    headClass: { type: String, default: "" },
+    bodyClass: { type: String, default: "" },
     status: { type: Boolean, default: false },
     selected: {
       type: Object,
