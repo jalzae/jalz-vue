@@ -14,7 +14,6 @@
       <!-- //type text -->
       <div v-if="item.type == 'text'">
         <input
-          v-if="item.action"
           type="text"
           class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
           :class="item.class ?? ''"
@@ -23,14 +22,7 @@
           @change="change(item.action)"
           :required="item.required"
         />
-        <input
-          v-else
-          type="text"
-          class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
-          :placeholder="item.place"
-          v-model="selected[item.model]"
-          :required="item.required"
-        />
+
       </div>
       <!-- //type readonly -->
       <div v-else-if="item.type == 'readonly'">
@@ -51,6 +43,7 @@
           :placeholder="item.place"
           v-model="selected[item.model]"
           :required="item.required"
+          @change="item.change ? change(item.change) : null"
         />
       </div>
       <!-- //type textarea -->
@@ -60,6 +53,7 @@
           :placeholder="item.place"
           v-model="selected[item.model]"
           :required="item.required"
+          @change="item.change ? change(item.change) : null"
         ></textarea>
       </div>
       <!-- //type editor -->
@@ -69,19 +63,19 @@
         v-else-if="item.type == 'html'"
         class="border border-gray-300 outline-none p-2 w-full mt-2"
       >
-       
-          <Editor
-            :api-key="tinyMceKey"
-            v-model="selected[item.model]"
-            :init="{
+
+        <Editor
+          :api-key="tinyMceKey"
+          v-model="selected[item.model]"
+          :init="{
               toolbar_mode: 'sliding',
               plugins:
                 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount code',
               toolbar:
                 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat | code',
             }"
-          />
-        
+        />
+
       </div>
       <!-- //type date -->
       <div v-else-if="item.type == 'date'">
@@ -90,6 +84,7 @@
           class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
           v-model="selected[item.model]"
           :required="item.required"
+          @change="item.change ? change(item.change) : null"
         />
       </div>
       <!-- //type list -->
@@ -127,6 +122,7 @@
           :placeholder="item.place"
           v-model="selected[item.model]"
           :required="item.required"
+          @change="item.change ? change(item.change) : null"
         />
       </div>
       <!-- //type showpass -->
@@ -136,6 +132,7 @@
           class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
           v-model="selected[item.model]"
           :required="item.required"
+          @change="item.change ? change(item.change) : null"
         />
 
         <input
@@ -154,6 +151,7 @@
           v-model="selected[item.model]"
           :required="item.required"
           :placeholder="item.place"
+          inputmode="number"
         />
       </div>
       <!-- //type currency -->
@@ -167,6 +165,7 @@
           @blur="focusOut(item.model, item.display, $event)"
           @focus="focusIn(item.model, item.display, $event)"
           v-model="selected[item.display]"
+          inputmode="mode"
         />
       </div>
       <!-- //type datetime -->
@@ -176,6 +175,7 @@
           class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
           :required="item.required"
           v-model="selected[item.model]"
+          @change="item.change ? change(item.change) : null"
         />
       </div>
       <!-- //type time -->
@@ -185,6 +185,7 @@
           class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
           :required="item.required"
           v-model="selected[item.model]"
+          @change="item.change ? change(item.change) : null"
         />
       </div>
       <!-- //type bool -->
@@ -195,6 +196,7 @@
           class="mx-2"
           v-model="selected[item.model]"
           :required="item.required"
+          @change="item.change ? change(item.change) : null"
         />
         <label for="checkbox"> {{ item.label }}</label>
       </div>
@@ -203,7 +205,7 @@
         <Map
           :lat="selected[item.lat]"
           :long="selected[item.long]"
-          @moveLocation="moveLocation"
+          @moveLocation="item.change ? change(item.change) : null"
         ></Map>
       </div>
       <!-- //type file -->
@@ -224,7 +226,6 @@
       <!-- //type select -->
       <div v-else-if="item.type == 'select'">
         <select
-          v-if="item.action"
           class="border border-gray-300 rounded outline-none p-2 w-full mt-2"
           v-model="selected[item.model]"
           @change="item.action ? change(item.action) : null"
@@ -242,24 +243,7 @@
             {{ items[item.display] }}
           </option>
         </select>
-        <select
-          v-else
-          class="border border-gray-300 rounded outline-none p-2 w-full mt-2"
-          v-model="selected[item.model]"
-          :required="item.required"
-        >
-          <option
-            disabled
-            value=""
-          >{{ item.place ? item.place : "Pilih Opsi" }}</option>
-          <option
-            v-for="items in item.list"
-            :key="items[item.value]"
-            :value="items[item.value]"
-          >
-            {{ items[item.display] }}
-          </option>
-        </select>
+
       </div>
       <div v-else>
         <div class="flex items-center justify-items-center">
@@ -303,7 +287,8 @@
 <script>
 import Editor from "@tinymce/tinymce-vue";
 import Map from "./Map.vue";
-export default {
+import { defineComponent } from "vue";
+export default defineComponent({
   components: {
     Editor,
     Map,
@@ -410,10 +395,10 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
-<style scoped>
+<style>
 .ck-editor__editable_inline {
   max-height: 600px !important;
   min-height: 300px !important;
