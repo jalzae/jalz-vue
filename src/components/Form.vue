@@ -19,9 +19,39 @@
           :class="item.class ?? ''"
           v-model="selected[item.model]"
           :placeholder="item.place"
-          @change="change(item.action)"
+          @change="item.action ? change(item.action): null"
           :required="item.required"
         />
+
+      </div>
+      <div v-else-if="item.type == 'point'">
+        <input
+          type="text"
+          class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
+          :class="item.class && item.class.input  ?item.class.input  :''"
+          v-model="point"
+          :placeholder="item.place"
+          @change="item.action.change ? change(item.action.change): null"
+          @keypress.enter="$emit(item.action.add,point),point=''"
+          :required="item.required"
+        />
+        <ul
+          v-if="selected[item.model].length>0"
+          :class="item.class && item.class.ul ? item.class.ul :''"
+        >
+          <li
+            v-for="child,index in selected[item.model]"
+            @click="item.action.delete ? $emit(item.action.delete,index) :null"
+            :class="item.class && item.class.li ? item.class.li :''"
+            :key="child"
+          >{{child}}
+            <div
+              v-if="item.html"
+              :class="item.class && item.class.custom"
+              v-html="item.html"
+            ></div>
+          </li>
+        </ul>
 
       </div>
       <!-- //type readonly -->
@@ -332,6 +362,11 @@ export default defineComponent({
       type: String,
       default: "",
     },
+  },
+  data() {
+    return {
+      point: "",
+    };
   },
   methods: {
     moveLocation({ lat, lng }) {
