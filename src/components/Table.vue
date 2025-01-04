@@ -11,6 +11,7 @@
             class="px-4 py-2 border border-gray-200"
             v-for="(item, index) in format.header"
             :key="item.name"
+            :class="item.class"
           >
             <p class="justify-between items-center text-center">
               {{ item.name }}
@@ -59,6 +60,7 @@
           >
             <img
               :src="item[items]"
+              :class="imageClass"
               max-width="100px"
             />
           </td>
@@ -157,7 +159,7 @@
 </template>
 <script>
 import Paging from "./Paging.vue";
-export default{
+export default {
   mixins: [],
   components: { Paging },
   props: {
@@ -172,6 +174,7 @@ export default{
     total_page: { type: Number, default: 1 },
     is_paging: { type: Boolean, default: false },
     classing: { type: String, default: "" },
+    imageClass: { type: String, default: "" },
   },
   methods: {
     prevpage() {
@@ -201,5 +204,5 @@ export default{
       i.cursor = true;
     }
   },
-}
+};
 </script>
