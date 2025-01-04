@@ -258,6 +258,17 @@
           :id="item.model"
           class="form-text text-muted"
         >Allowed :<b> {{ item.allow }}</b></small>
+        <!-- Image Preview -->
+        <div
+          v-if="imagePreview && isImage(item.extension)"
+          class="mt-3"
+        >
+          <img
+            :src="imagePreview"
+            alt="Preview"
+            class="border border-gray-300 rounded w-full max-w-sm"
+          />
+        </div>
       </div>
       <!-- //type select -->
       <div v-else-if="item.type == 'select'">
@@ -421,8 +432,21 @@ export default defineComponent({
       }
       this.selected[model] = file;
       this.selected[extension] = ext;
-    },
 
+      if (["png", "jpg", "jpeg", "gif"].includes(extension)) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.imagePreview = e.target.result; // Set the image preview URL
+        };
+        reader.readAsDataURL(file); // Read the file as Data URL
+      } else {
+        this.imagePreview = null; // Clear preview if not an image
+      }
+    },
+    isImage(extension) {
+      // Check if the extension corresponds to an image type
+      return ["png", "jpg", "jpeg", "gif"].includes(extension.toLowerCase());
+    },
     checkString(variable) {
       let isString = typeof variable === "string";
       let isStringArray =
