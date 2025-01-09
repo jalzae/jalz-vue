@@ -55,6 +55,12 @@
             {{ item[items] }}
           </td>
           <td
+            v-for="(items, i) in format.time"
+            :key="i"
+          >
+            {{ formatDate(item[items.model],item[items.format])}}
+          </td>
+          <td
             v-for="(items, i) in format.image"
             :key="i"
           >
@@ -69,6 +75,7 @@
             :key="i"
             v-html="item[items]"
           ></td>
+
           <td
             v-for="act in format.button"
             :key="act.model"
@@ -159,6 +166,7 @@
 </template>
 <script>
 import Paging from "./Paging.vue";
+import moment from "moment";
 export default {
   mixins: [],
   components: { Paging },
@@ -177,6 +185,9 @@ export default {
     imageClass: { type: String, default: "" },
   },
   methods: {
+    formatDate(value, format = "YYYY-MM-DD") {
+      return value ? moment(value).format(format) : "-";
+    },
     prevpage() {
       this.$emit("prevpage");
     },
