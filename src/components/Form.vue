@@ -260,13 +260,13 @@
         >Allowed :<b> {{ item.allow }}</b></small>
         <!-- Image Preview -->
         <div
-          v-if="imagePreview && isImage(item.extension)"
+          v-if="imagePreview && item.preview"
           class="mt-3"
         >
           <img
             :src="imagePreview"
+            :class="item.class ? item.class :'w-full '"
             alt="Preview"
-            class="border border-gray-300 rounded w-full max-w-sm"
           />
         </div>
       </div>
@@ -377,6 +377,7 @@ export default defineComponent({
   data() {
     return {
       point: "",
+      imagePreview: null,
     };
   },
   methods: {
@@ -423,30 +424,31 @@ export default defineComponent({
       evt.target.value = format;
     },
     previewFiles(model, extension, extArr, event) {
-      const file = event.target.files[0];
-      const ext = file.name.split(".").pop().toLowerCase();
-      if (!extArr.find((e) => e == ext)) {
-        alert("Wrong extension!!");
-        event.target.value = "";
-        return;
-      }
-      this.selected[model] = file;
-      this.selected[extension] = ext;
+      try {
+        const file = event.target.files[0];
+        const ext = file.name.split(".").pop().toLowerCase();
+        if (!extArr.find((e) => e == ext)) {
+          alert("Wrong extension!!");
+          event.target.value = "";
+          return;
+        }
+        this.selected[model] = file;
+        this.selected[extension] = ext;
 
-      if (["png", "jpg", "jpeg", "gif"].includes(extension)) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          this.imagePreview = e.target.result; // Set the image preview URL
-        };
-        reader.readAsDataURL(file); // Read the file as Data URL
-      } else {
-        this.imagePreview = null; // Clear preview if not an image
+        if (["png", "jpg", "jpeg", "gif"].includes(ext)) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.imagePreview = e.target.result; // Set the image preview URL
+          };
+          reader.readAsDataURL(file); // Read the file as Data URL
+        } else {
+          this.imagePreview = null; // Clear preview if not an image
+        }
+      } catch (err) {
+        console.warn("errorImagePreview", err);
       }
     },
-    isImage(extension) {
-      // Check if the extension corresponds to an image type
-      return ["png", "jpg", "jpeg", "gif"].includes(extension.toLowerCase());
-    },
+
     checkString(variable) {
       let isString = typeof variable === "string";
       let isStringArray =

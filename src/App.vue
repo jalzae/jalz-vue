@@ -28,18 +28,18 @@ export default {
   data() {
     return {
       forms: {
-        instruksi: [],
+        image: "",
+        ext: "",
       },
       form: [
         {
-          model: "instruksi",
-          type: "point",
-          place: "Tulis urutan instruksi",
-          action: {
-            add: "add",
-            delete: "delete",
-          },
-          html:`X`
+          type: "file",
+          model: "image",
+          extension: "ext",
+          allow: ["jpg", "png", "jpeg"],
+          label: "Cover",
+          place: "Upload Gambar...",
+          preview: true,
         },
       ],
     };
