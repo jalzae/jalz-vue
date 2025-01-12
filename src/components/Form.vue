@@ -371,7 +371,7 @@ export default defineComponent({
     },
     tinyMceKey: {
       type: String,
-      default: "",
+      default: "4skxwu29aiottg7uwy8zm0v2sl47rsj4uv64nkqdw9j47en6",
     },
   },
   data() {
