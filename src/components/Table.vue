@@ -55,6 +55,20 @@
             {{ item[items] }}
           </td>
           <td
+            v-for="(items,i) in format.edit"
+            :key="i"
+            contenteditable="true"
+            @blur="updateValue($event,items.action, item[items.key], items.model)"
+          >
+            {{ item[items.model] }}
+          </td>
+          <td
+            v-for="(items, i) in format.currency"
+            :key="i"
+          >
+            {{ formatNumber(item[items])}}
+          </td>
+          <td
             v-for="(items, i) in format.time"
             :key="i"
           >
@@ -75,7 +89,23 @@
             :key="i"
             v-html="item[items]"
           ></td>
-
+          <td
+            v-for="items,i in format.select"
+            :key="i"
+          >
+            <select
+              @change="updateValueSelect($event,items.action, item[items.key], items.model)"
+              :class="items.class ?? ''"
+            >
+              <option>{{item[items.model]}}</option>
+              <option
+                v-for="li in items.list"
+                :key="li[items.value]"
+                :value="li[items.value]"
+              >{{li[items.display]}}
+              </option>
+            </select>
+          </td>
           <td
             v-for="act in format.button"
             :key="act.model"
@@ -152,7 +182,7 @@
         </tr>
       </tbody>
     </table>
-    <div v-if="is_paging">
+    <div v-if="paging">
       <Paging
         :page="page"
         :per_page="per_page"
@@ -167,6 +197,7 @@
 <script>
 import Paging from "./Paging.vue";
 import moment from "moment";
+import helper from "../controller/helper";
 export default {
   mixins: [],
   components: { Paging },
@@ -180,11 +211,22 @@ export default {
     per_page: { type: Number, default: 1 },
     actionName: { type: String, default: "" },
     total_page: { type: Number, default: 1 },
-    is_paging: { type: Boolean, default: false },
+    paging: { type: Boolean, default: false },
     classing: { type: String, default: "" },
     imageClass: { type: String, default: "" },
   },
   methods: {
+    formatNumber(num) {
+      return helper.formatNumber(num);
+    },
+    updateValue(event, action, index, model) {
+      const newValue = event.target.innerText;
+      this.$emit(action, { key: index, model, value: newValue });
+    },
+    updateValueSelect(event, action, index, model) {
+      const newValue = event.target.value;
+      this.$emit(action, { key: index, model, value: newValue });
+    },
     formatDate(value, format = "YYYY-MM-DD") {
       return value ? moment(value).format(format) : "-";
     },
