@@ -63,6 +63,13 @@
             {{ item[items.model] }}
           </td>
           <td
+            v-for="(items,i) in format.hit"
+            :key="i"
+            @click="updateValue($event,items.action, item[items.key], items.model)"
+          >
+            {{ item[items.model] }}
+          </td>
+          <td
             v-for="(items, i) in format.currency"
             :key="i"
           >
