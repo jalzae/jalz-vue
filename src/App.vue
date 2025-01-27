@@ -5,6 +5,8 @@
       :format="format"
       :list="list"
       @replace="replace"
+      :search="true"
+      :keyword="['name','price']"
     />
   </div>
 </template>
@@ -28,31 +30,24 @@ export default {
             name: "Test",
           },
         ],
-        body: [],
+        body: ["name"],
         currency: ["price"],
-        select: [
-          {
-            key: "id",
-            display: "name",
-            value: "name",
-            model: "name",
-            action: "replace",
-            list: [
-              {
-                name: "Offline",
-              },
-              {
-                name: "Online",
-              },
-            ],
-          },
-        ],
       },
       list: [
         {
           id: 1,
           name: "test edit",
+          price: 13000,
+        },
+        {
+          id: 2,
+          name: "budi",
           price: 15000,
+        },
+        {
+          id: 3,
+          name: "bondan",
+          price: 10000,
         },
       ],
     };

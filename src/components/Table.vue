@@ -1,5 +1,12 @@
 <template>
   <div class="max-w-full overflow-auto pr-4">
+    <input
+      v-if="search"
+      type="text"
+      class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
+      v-model="keywords"
+      placeholder="Masukan keyword..."
+    />
     <table
       class="table table-striped w-full"
       :class="classing"
@@ -36,7 +43,7 @@
       </tbody>
       <tbody v-else>
         <tr
-          v-for="(item, int) in list"
+          v-for="(item, int) in modifiedList"
           :key="item[format.body[0]]"
           class="rounded-lg border text-center"
           :class="(format.class ?? '',
@@ -221,6 +228,8 @@ export default {
     paging: { type: Boolean, default: false },
     classing: { type: String, default: "" },
     imageClass: { type: String, default: "" },
+    search: { type: Boolean, default: false },
+    keyword: { type: Array, default: [] },
   },
   methods: {
     formatNumber(num) {
@@ -257,6 +266,37 @@ export default {
       if (this.isDropdownOpen === index) {
         this.isDropdownOpen = null;
       }
+    },
+  },
+  data() {
+    return {
+      keywords: "",
+    };
+  },
+  computed: {
+    modifiedList() {
+      let result = [];
+
+      if (this.keywords == "") {
+        return this.list;
+      }
+
+      if (this.keyword.length > 0 && this.list.length > 0) {
+        result = this.list.filter((item) => {
+          return this.keyword.some((key) => {
+            // Check if the key exists in the item and its value includes the keyword
+            return (
+              item[key] && // Ensure the key exists in the item
+              item[key]
+                .toString()
+                .toLowerCase()
+                .includes(this.keywords.toString().toLowerCase())
+            );
+          });
+        });
+      }
+
+      return result ?? [];
     },
   },
   async created() {
