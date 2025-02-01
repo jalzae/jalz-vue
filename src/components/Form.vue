@@ -300,7 +300,7 @@
 
       <p
         v-if="formErrors && formErrors[item.model]"
-        class="text-red-500"
+        :class="errorClass"
       >
         {{ formErrors[item.model] }}
       </p>
@@ -360,6 +360,7 @@ export default defineComponent({
     submitclass: { type: String, default: "" },
     response: { type: String, default: "" },
     formclass: { type: String, default: "" },
+    errorClass: { type: String, default: "" },
     disabled: {
       type: Boolean,
       default: false,
