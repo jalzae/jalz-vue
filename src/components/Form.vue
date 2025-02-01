@@ -334,8 +334,10 @@
 <script>
 import Editor from "@tinymce/tinymce-vue";
 import Map from "./Map.vue";
+import helper from "../controller/form";
 import { defineComponent } from "vue";
 export default defineComponent({
+  mixins: [helper],
   components: {
     Editor,
     Map,
@@ -351,16 +353,13 @@ export default defineComponent({
     },
     action: {
       type: String,
-      required: true,
+      required: false,
+      default: "",
     },
     submitname: { type: String, default: "Submit" },
     submitclass: { type: String, default: "" },
     response: { type: String, default: "" },
     formclass: { type: String, default: "" },
-    formErrors: {
-      type: Object,
-      default: {},
-    },
     disabled: {
       type: Boolean,
       default: false,
@@ -372,6 +371,10 @@ export default defineComponent({
     tinyMceKey: {
       type: String,
       default: "4skxwu29aiottg7uwy8zm0v2sl47rsj4uv64nkqdw9j47en6",
+    },
+    validation: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -385,6 +388,12 @@ export default defineComponent({
       this.$emit("moveLocation", { lat, lng });
     },
     async submit() {
+      if (this.validation) {
+        const result = this.validateForm(this.form, this.selected);
+        if (!result) {
+          return;
+        }
+      }
       this.$emit(this.action, this.selected);
     },
     async change(action) {

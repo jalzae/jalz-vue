@@ -28,8 +28,6 @@
 
 <script>
 export default {
-  mixins: [],
-  components: {},
   props: {
     lat: {
       type: Number,
@@ -57,13 +55,6 @@ export default {
       this.$emit("moveLocation", { lat, lng });
     },
   },
-  data() {
-    return {};
-  },
-  mounted() {},
-  computed: {},
-  watch: {},
-  created() {},
 };
 </script>
 

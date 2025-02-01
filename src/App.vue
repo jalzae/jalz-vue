@@ -2,52 +2,37 @@
   <div id="app">
     <h1>Test Vue Components</h1>
     <Form
-      :format="format"
-      :list="list"
-      @replace="replace"
-      :search="true"
-      :keyword="['name','price']"
+      :selected="forms"
+      :form="form"
+      action="action"
+      @action="replace"
+      :validation="true"
     />
   </div>
 </template>
 
 <script>
-import Form from "./components/Table.vue";
+import Form from "./components/Form.vue";
 export default {
   components: {
     Form,
   },
   methods: {
-    replace(val) {
-      console.table(val);
+    replace() {
+      alert("Sukses");
     },
   },
   data() {
     return {
-      format: {
-        header: [
-          {
-            name: "Test",
-          },
-        ],
-        body: ["name"],
-        currency: ["price"],
+      forms: {
+        password: "",
       },
-      list: [
+      form: [
         {
-          id: 1,
-          name: "test edit",
-          price: 13000,
-        },
-        {
-          id: 2,
-          name: "budi",
-          price: 15000,
-        },
-        {
-          id: 3,
-          name: "bondan",
-          price: 10000,
+          type: "text",
+          model: "password",
+          label: "Password",
+          validation: ["required","maxLength:8"],
         },
       ],
     };
