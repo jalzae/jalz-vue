@@ -123,6 +123,21 @@
           @change="item.change ? change(item.change) : null"
         />
       </div>
+      <div v-else-if="item.type == 'year'">
+        <input
+          type="number"
+          id="year"
+          name="year"
+          min="1900"
+          max="2100"
+          step="1"
+          value="2025"
+          class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
+          v-model="selected[item.model]"
+          :required="item.required"
+          @change="item.change ? change(item.change) : null"
+        />
+      </div>
       <!-- //type list -->
       <div v-else-if="item.type == 'list'">
         <input
