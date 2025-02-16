@@ -2,17 +2,15 @@
   <div id="app">
     <h1>Test Vue Components</h1>
     <Form
-      :selected="forms"
-      :form="form"
-      action="action"
-      @action="replace"
-      :validation="true"
+      :judul="'Test'"
+      :action="'hello'"
+      @hello="replace"
     />
   </div>
 </template>
 
 <script>
-import Form from "./components/Form.vue";
+import Form from "./components/CardHtml.vue";
 export default {
   components: {
     Form,
@@ -23,19 +21,7 @@ export default {
     },
   },
   data() {
-    return {
-      forms: {
-        password: "",
-      },
-      form: [
-        {
-          type: "text",
-          model: "password",
-          label: "Password",
-          validation: ["required","maxLength:8"],
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>

@@ -312,6 +312,10 @@
           <b>Input not Found</b>
         </div>
       </div>
+      <small
+        v-if="item.note"
+        class="form-text text-muted"
+      >Note :<b> {{ item.note }}</b></small>
 
       <p
         v-if="formErrors && formErrors[item.model]"
