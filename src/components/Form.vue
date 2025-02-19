@@ -123,6 +123,23 @@
           @change="item.change ? change(item.change) : null"
         />
       </div>
+      <div v-else-if="item.type == 'month'">
+        <select
+          name="bulan"
+          class="custom-input border border-gray-300 rounded outline-none p-2 w-1/2 mt-2"
+          v-model="selected[item.model]"
+          :required="item.required"
+          @change="item.change ? change(item.change) : null"
+        >
+          <option
+            v-for="(bulan, index) in bulanList"
+            :key="index"
+            :value="index + 1"
+          >
+            {{ bulan }}
+          </option>
+        </select>
+      </div>
       <div v-else-if="item.type == 'year'">
         <input
           type="number"
@@ -401,6 +418,20 @@ export default defineComponent({
     return {
       point: "",
       imagePreview: null,
+      bulanList: [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ],
     };
   },
   methods: {
