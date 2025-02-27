@@ -18,7 +18,7 @@
     </button>
 
     <button
-      :class="{ hidden: page == total_page }"
+     :class="{ hidden: page == total_page || total_page < 2 }"
       type="button"
       class="btn btn-primary ml-3 float-end"
       @click="next"

@@ -6,6 +6,7 @@
       class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
       v-model="keywords"
       placeholder="Masukan keyword..."
+      @keyup.enter="debounceEmitSearch"
     />
     <table
       class="table table-striped w-full"
@@ -291,9 +292,8 @@ export default {
         return [...this.list];
       }
 
-      if (this.searchSsr) {
-        this.debounceEmitSearch();
-        return;
+      if(this.searchSsr){
+        return
       }
 
       if (this.keyword.length > 0 && this.list.length > 0) {
