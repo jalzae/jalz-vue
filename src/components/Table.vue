@@ -276,6 +276,7 @@ export default {
       this.debounceTimeout = setTimeout(() => {
         this.$emit(this.searchAction, this.keywords);
       }, 300);
+      this.keywords = "";
     },
   },
   data() {
@@ -292,8 +293,8 @@ export default {
         return [...this.list];
       }
 
-      if(this.searchSsr){
-        return
+      if (this.searchSsr) {
+        return;
       }
 
       if (this.keyword.length > 0 && this.list.length > 0) {
