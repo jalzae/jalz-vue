@@ -273,10 +273,10 @@ export default {
     },
     debounceEmitSearch() {
       clearTimeout(this.debounceTimeout);
-      this.debounceTimeout = setTimeout(() => {
-        this.$emit(this.searchAction, this.keywords);
+      this.debounceTimeout = setTimeout(async () => {
+        await this.$emit(this.searchAction, this.keywords);
+        this.keywords = ""; // Reset only after search completes
       }, 300);
-      this.keywords = "";
     },
   },
   data() {
