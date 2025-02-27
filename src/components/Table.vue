@@ -231,6 +231,8 @@ export default {
     imageClass: { type: String, default: "" },
     search: { type: Boolean, default: false },
     keyword: { type: Array, default: [] },
+    searchSsr: { type: Boolean, default: false },
+    searchAction: { type: String, default: "" },
   },
   methods: {
     formatNumber(num) {
@@ -268,18 +270,30 @@ export default {
         this.isDropdownOpen = null;
       }
     },
+    debounceEmitSearch() {
+      clearTimeout(this.debounceTimeout);
+      this.debounceTimeout = setTimeout(() => {
+        this.$emit(this.searchAction);
+      }, 300);
+    },
   },
   data() {
     return {
       keywords: "",
+      debounceTimeout: null,
     };
   },
   computed: {
     modifiedList() {
       let result = [];
 
-      if (this.keywords == "") {
-        return this.list;
+      if (this.keywords === "") {
+        return [...this.list];
+      }
+
+      if (this.searchSsr) {
+        this.debounceEmitSearch();
+        return;
       }
 
       if (this.keyword.length > 0 && this.list.length > 0) {
