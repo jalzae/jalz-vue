@@ -13,4 +13,4 @@ import Search from './components/Search.vue';
 import Table from './components/Table.vue';
 import Modal from './components/Modal.vue';
 
-export default { Button, ButtonList, Buttons, Card, CardHtml, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table,Modal };
+export default { Button, ButtonList, Buttons, Card, CardHtml, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table, Modal };

@@ -208,6 +208,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import Paging from "./Paging.vue";
 import moment from "moment";

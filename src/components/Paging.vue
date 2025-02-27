@@ -1,5 +1,5 @@
 <template>
-  <center class="mt-8">
+  <div class="mt-8">
     <button
       :class="{ hiden: page == 1 }"
       type="button"
@@ -25,13 +25,11 @@
     >
       <i class="fas fa-chevron-right"></i>
     </button>
-  </center>
+  </div>
 </template>
 
 <script>
-export default{
-  mixins: [],
-  components: {},
+export default {
   props: {
     page: Number,
     per_page: Number,
@@ -45,7 +43,7 @@ export default{
       this.$emit("nextpage");
     },
   },
-}
+};
 </script>
 
 <style>
