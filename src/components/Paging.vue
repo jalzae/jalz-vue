@@ -1,7 +1,7 @@
 <template>
   <div class="mt-8">
     <button
-      :class="{ hiden: page == 1 }"
+      :class="{ hidden: page == 1 }"
       type="button"
       class="btn btn-primary"
       @click="prev"
@@ -10,7 +10,7 @@
     </button>
 
     <button
-      :class="{ hiden: total_page == 1 || total_page == 0 }"
+      :class="{ hidden: total_page == 1 || total_page == 0 }"
       type="button"
       class="btn btn-default ml-3 btn-round float-end"
     >
@@ -18,7 +18,7 @@
     </button>
 
     <button
-      :class="{ hiden: page == total_page }"
+      :class="{ hidden: page == total_page }"
       type="button"
       class="btn btn-primary ml-3 float-end"
       @click="next"
@@ -45,9 +45,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.hiden {
-  display: none !important;
-}
-</style>
