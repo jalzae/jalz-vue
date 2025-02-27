@@ -273,7 +273,7 @@ export default {
     debounceEmitSearch() {
       clearTimeout(this.debounceTimeout);
       this.debounceTimeout = setTimeout(() => {
-        this.$emit(this.searchAction);
+        this.$emit(this.searchAction, this.keywords);
       }, 300);
     },
   },
