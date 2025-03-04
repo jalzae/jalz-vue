@@ -63,6 +63,13 @@
             {{ item[items] }}
           </td>
           <td
+            v-for="(items, i) in format.count"
+            :key="i"
+            class="px-4 py-2 text-md"
+          >
+            {{ item[items].length ?? 0 }}
+          </td>
+          <td
             v-for="(items,i) in format.edit"
             :key="i"
             contenteditable="true"
