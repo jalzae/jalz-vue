@@ -34,6 +34,7 @@
     </div>
     <div
       v-if="status"
+      :class="customClass"
       class="opacity-25 fixed inset-0 z-40 bg-black"
     ></div>
   </div>
@@ -45,6 +46,7 @@ export default {
   props: {
     headClass: { type: String, default: "" },
     bodyClass: { type: String, default: "" },
+    customClass: { type: String, default: "" },
     status: { type: Boolean, default: false },
     selected: {
       type: Object,
