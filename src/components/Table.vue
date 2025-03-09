@@ -93,6 +93,7 @@
           <td
             v-for="(items, i) in format.time"
             :key="i"
+            @click="items.action ? updateValue($event,items.action, item[items.key], items.model):null"
           >
             {{ formatDate(item[items.model],item[items.format])}}
           </td>
