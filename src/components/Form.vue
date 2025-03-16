@@ -117,6 +117,9 @@
       <div v-else-if="item.type == 'editor'">
         <EditorNative v-model="selected[item.model]" />
       </div>
+      <div v-else-if="item.type == 'draw'">
+        <Drawer @submitDraw="submitDraw" />
+      </div>
       <div v-else-if="item.type == 'date'">
         <input
           type="date"
@@ -375,12 +378,14 @@ import Editor from "@tinymce/tinymce-vue";
 import Map from "./Map.vue";
 import helper from "../controller/form";
 import EditorNative from "./Editor.vue";
+import Drawer from "./Drawing.vue";
 import { defineComponent } from "vue";
 export default defineComponent({
   mixins: [helper],
   components: {
     Editor,
     EditorNative,
+    Drawer,
     Map,
   },
   props: {
@@ -525,6 +530,9 @@ export default defineComponent({
       } else if (isStringArray) {
         return variable[variable.length - 1];
       }
+    },
+    submitDraw(result) {
+      this.$emit("submitDraw", result);
     },
   },
 });

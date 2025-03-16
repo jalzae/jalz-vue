@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Form from "./components/Editor.vue";
+import Form from "./components/Drawing.vue";
 export default {
   components: {
     Form,
