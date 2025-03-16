@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -7,32 +7,60 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <div class="toolbar">
+
+    <div id="iconBar">
       <button
-        @click="format('bold')"
-        title="Bold"
+        @click="toggleMode"
+        :class="{ active: isHtml }"
       >
-        <i class="fa fa-bold"></i>
+        <i class="fas fa-exchange-alt"></i>
       </button>
       <button
-        @click="format('italic')"
-        title="Italic"
+        @click="removeFormatting"
+        :disabled="isHtml"
       >
-        <i class="fa fa-italic"></i>
+        <i class="fas fa-eraser"></i>
       </button>
       <button
-        @click="format('underline')"
-        title="Underline"
+        @click="formatText('bold')"
+        :class="{ active: isBold }"
+        :disabled="isHtml"
       >
-        <i class="fa fa-underline"></i>
+        <i class="fas fa-bold"></i>
+      </button>
+      <button
+        @click="formatText('italic')"
+        :class="{ active: isItalic }"
+        :disabled="isHtml"
+      >
+        <i class="fas fa-italic"></i>
+      </button>
+      <button
+        @click="formatText('underline')"
+        :class="{ active: isUnderline }"
+        :disabled="isHtml"
+      >
+        <i class="fas fa-underline"></i>
       </button>
     </div>
 
+    <div v-if="isHtml">
+      <textarea
+        v-model="content"
+        @input="$emit('update:model', content)"
+        class="editor-area"
+      ></textarea>
+    </div>
     <div
-      class="editor"
-      contenteditable="true"
-      @input="updateContent"
+      v-else
       ref="editor"
+      contenteditable="true"
+      @blur="updateHtml"
+      @keyup="updateFormatting"
+      @mouseup="updateFormatting"
+      v-html="content"
+      style="direction: inherit;"
+      class="editor-area"
     ></div>
   </div>
 </template>
@@ -40,61 +68,82 @@
 <script>
 export default {
   props: {
-    content: String,
+    model: String,
   },
-  methods: {
-    updateContent(event) {
-      const newContent = event.target.innerHTML;
-      // Emit the updated content to the parent
-      this.$emit("update:content", newContent);
-    },
-    format(command) {
-      document.execCommand(command, false, null);
-    },
+  data() {
+    return {
+      isHtml: false,
+      content: this.model,
+      isBold: false,
+      isItalic: false,
+      isUnderline: false,
+    };
   },
   watch: {
-    content(newValue) {
-      if (this.$refs.editor.innerHTML !== newValue) {
-        this.$refs.editor.innerHTML = newValue;
+    model(newVal) {
+      if (newVal !== this.content) {
+        this.content = newVal;
       }
     },
   },
-  mounted() {
-    this.$refs.editor.innerHTML = this.content || "";
+  methods: {
+    toggleMode() {
+      this.isHtml = !this.isHtml;
+    },
+    updateHtml(event) {
+      this.content = event.target.innerHTML;
+      this.$emit("update:model", this.content);
+    },
+    formatText(command) {
+      document.execCommand(command, false, null);
+      this.updateFormatting();
+    },
+    updateFormatting() {
+      this.isBold = document.queryCommandState("bold");
+      this.isItalic = document.queryCommandState("italic");
+      this.isUnderline = document.queryCommandState("underline");
+    },
+    removeFormatting() {
+      document.execCommand("removeFormat", false, null);
+      this.updateFormatting();
+    },
   },
 };
 </script>
 
-<style>
-.editor {
-  border: 1px solid #ccc;
-  padding: 10px;
-  min-height: 100px;
-}
 
-/* Toolbar styling */
-.toolbar {
+<style scoped>
+#iconBar {
   display: flex;
-  justify-content: start;
-  gap: 10px;
-  background-color: #f4f4f4;
-  border-bottom: 1px solid #ccc;
-  padding: 10px;
+  gap: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+  padding: 4px;
+  background: #eee;
 }
-
-/* Buttons styling */
-.toolbar button {
+button {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
-  color: #333;
-  transition: color 0.2s ease;
+  font-size: 16px;
 }
 
-.toolbar button:hover {
-  color: #007bff;
+button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+button.active {
+  background: rgba(0, 0, 255, 0.2);
+}
+.editor-area {
+  min-height: 200px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
 }
 </style>
-
-

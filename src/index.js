@@ -4,6 +4,7 @@ import Buttons from './components/Buttons.vue';
 import Card from './components/Card.vue';
 import CardHtml from './components/CardHtml.vue';
 import FloatingButton from './components/FloatingButton.vue';
+import Editor from './components/Editor.vue';
 import Form from './components/Form.vue';
 import Loading from './components/Loading.vue';
 import Map from './components/Map.vue';
@@ -13,4 +14,4 @@ import Search from './components/Search.vue';
 import Table from './components/Table.vue';
 import Modal from './components/Modal.vue';
 
-export default { Button, ButtonList, Buttons, Card, CardHtml, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table, Modal };
+export default { Button, ButtonList, Buttons, Card, CardHtml, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table, Modal, Editor };

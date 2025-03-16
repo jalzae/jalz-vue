@@ -9,18 +9,12 @@
     />
 
     <h1>Test Vue Components</h1>
-    <Form
-      :list="list"
-      :format="format"
-      :paging="true"
-      :total_page="2"
-      :page="2"
-    />
+    <Form v-model="text" />
   </div>
 </template>
 
 <script>
-import Form from "./components/Table.vue";
+import Form from "./components/Editor.vue";
 export default {
   components: {
     Form,
@@ -28,6 +22,7 @@ export default {
   methods: {},
   data() {
     return {
+      text: "",
       format: {
         header: [
           {

@@ -114,6 +114,9 @@
 
       </div>
       <!-- //type date -->
+      <div v-else-if="item.type == 'editor'">
+        <EditorNative v-model="selected[item.model]" />
+      </div>
       <div v-else-if="item.type == 'date'">
         <input
           type="date"
@@ -371,11 +374,13 @@
 import Editor from "@tinymce/tinymce-vue";
 import Map from "./Map.vue";
 import helper from "../controller/form";
+import EditorNative from "./Editor.vue";
 import { defineComponent } from "vue";
 export default defineComponent({
   mixins: [helper],
   components: {
     Editor,
+    EditorNative,
     Map,
   },
   props: {
