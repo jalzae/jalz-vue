@@ -9,34 +9,23 @@
     />
 
     <h1>Test Vue Components</h1>
-    <Form v-model="text" />
+    <FallbackImage
+      src="/images/profile.jpg"
+      alt="Profile photo"
+      image-class="rounded-full w-20 h-20 object-cover"
+    />
   </div>
 </template>
 
 <script>
-import Form from "./components/Drawing.vue";
+import FallbackImage from "./components/Img.vue";
 export default {
   components: {
-    Form,
+    FallbackImage,
   },
   methods: {},
   data() {
-    return {
-      text: "",
-      format: {
-        header: [
-          {
-            name: "Nama",
-          },
-        ],
-        body: ["name"],
-      },
-      list: [
-        {
-          name: "test",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>

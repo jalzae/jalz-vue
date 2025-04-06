@@ -13,5 +13,6 @@ import Paging from './components/Paging.vue';
 import Search from './components/Search.vue';
 import Table from './components/Table.vue';
 import Modal from './components/Modal.vue';
+import Img from './components/Img.vue'
 
-export default { Button, ButtonList, Buttons, Card, CardHtml, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table, Modal, Editor };
+export default { Button, ButtonList, Buttons, Card, CardHtml, FloatingButton, Form, Loading, Map, NotFound, Paging, Search, Table, Modal, Editor, Img };
