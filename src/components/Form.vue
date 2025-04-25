@@ -5,6 +5,10 @@
     class="pr-4"
     :class="formclass"
   >
+    <h3
+      v-if="title"
+      :class="titleClass ?? null"
+    >{{title}}</h3>
     <div
       v-for="item in form"
       :key="item.model"
@@ -15,14 +19,26 @@
       <div v-if="item.type == 'text'">
         <input
           type="text"
-          class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
-          :class="item.class ?? ''"
+          :class="item.class ?? 'custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2'"
           v-model="selected[item.model]"
           :placeholder="item.place"
           @change="item.action ? change(item.action): null"
           :required="item.required"
         />
 
+      </div>
+      <div v-if="item.type == 'text-style'">
+        <AnimatedInput
+          v-model="selected[item.model]"
+          :class="item.class ?? 'custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2'"
+          :label="item.place ?? ''"
+          type="text"
+          :colors="item.class && item.class.colors? item.class.colors : {}"
+          :padding="item.class && item.class.padding? item.class.padding : {}"
+          :margin="item.class && item.class.margin? item.class.margin : {}"
+          @change="item.action ? change(item.action): null"
+          :required="item.required"
+        />
       </div>
       <div v-else-if="item.type == 'point'">
         <input
@@ -274,6 +290,17 @@
         />
         <label for="checkbox"> {{ item.label }}</label>
       </div>
+      <div v-else-if="item.type=='checkbox'">
+        <CheckBox
+          :modelValue="selected[item.model]"
+          :label="item.place"
+          :id="item.id"
+          :required="item.required"
+          :class="item.class ?? ''"
+          @update:modelValue="val => selected[item.model] = val"
+          @change="item.change ? change(item.change) : null"
+        />
+      </div>
       <!-- Type file -->
       <div v-else-if="item.type == 'map'">
         <Map
@@ -330,6 +357,22 @@
         </select>
 
       </div>
+      <div v-else-if="item.type == 'select-style'">
+        <AnimatedDropdown
+          v-model="selected[item.model]"
+          :options="item.list ?? []"
+          :class="item.class ?? 'custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2'"
+          :label="item.place ?? ''"
+          type="text"
+          :colors="item.class && item.class.colors? item.class.colors : {}"
+          :padding="item.class && item.class.padding? item.class.padding : {}"
+          :margin="item.class && item.class.margin? item.class.margin : {}"
+          @change="item.action ? change(item.action): null"
+          :required="item.required"
+          :value="item.value"
+          :display="item.display"
+        />
+      </div>
       <div v-else>
         <div class="flex items-center justify-items-center">
           <b>Input not Found</b>
@@ -379,6 +422,9 @@ import Map from "./Map.vue";
 import helper from "../controller/form";
 import EditorNative from "./Editor.vue";
 import Drawer from "./Drawing.vue";
+import AnimatedInput from "./AnimatedInput.vue";
+import AnimatedDropdown from "./AnimatedDropdown.vue";
+import CheckBox from "./CheckBox.vue";
 import { defineComponent } from "vue";
 export default defineComponent({
   mixins: [helper],
@@ -387,8 +433,19 @@ export default defineComponent({
     EditorNative,
     Drawer,
     Map,
+    AnimatedInput,
+    AnimatedDropdown,
+    CheckBox,
   },
   props: {
+    title: {
+      type: String,
+      default: "",
+    },
+    titleClass: {
+      type: String,
+      default: "",
+    },
     selected: {
       type: Object,
       default: {},
