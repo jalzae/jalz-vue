@@ -189,7 +189,12 @@ export default {
     return (
       typeof obj === "object" && obj !== null && Object.keys(obj).length === 0
     );
-  }
-
+  },
+  isNumber(event) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+    }
+  },
 };
 

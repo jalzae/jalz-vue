@@ -1,15 +1,25 @@
 <template>
   <div>
     <Form
+      :list="[
+      {
+        name:'Jalz'
+      }]"
+      :format="{
+      header:[
+      {
+        name:'Nama'
+      }],
+      body:['name']
+     }"
+      :isForm="true"
+      :forms="forms"
       :form="form"
-      :selected="forms"
-      :action="'action'"
-      @action="confirm"
     />
   </div>
 </template>
 <script>
-import Form from "../src/components/Form.vue";
+import Form from "../src/components/Table.vue";
 export default {
   components: {
     Form,
@@ -24,29 +34,20 @@ export default {
       form: [
         {
           model: "email",
-          type: "text-style",
+          type: "text",
           place: "Email",
         },
         {
-          type: "select-style",
-          place: "Select Country",
-          model: "username",
-          value: "text",
-          display: "text",
-          list: [
-            {
-              text: "America",
-            },
-            {
-              text: "England",
-            },
-          ],
+          model: "email",
+          type: "text",
+          place: "Email",
         },
         {
-          type: "checkbox",
-          place: "Nama Perusahaan",
-          model: "status",
+          model: "email",
+          type: "text",
+          place: "Email",
         },
+        
       ],
     };
   },

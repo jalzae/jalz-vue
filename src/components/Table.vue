@@ -204,6 +204,105 @@
           </td>
         </tr>
       </tbody>
+      <tfoot v-if="isForm">
+        <tr>
+          <td></td>
+          <td
+            v-for="item in form"
+            :key="item.model"
+          >
+            <div v-if="item.type == 'text'">
+              <input
+                type="text"
+                :class="item.class ?? 'custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2'"
+                v-model="forms[item.model]"
+                :placeholder="item.place"
+                @change="item.action ? change(item.action): null"
+                :required="item.required"
+              />
+            </div>
+            <div v-else-if="item.type == 'readonly'">
+              <input
+                type="text"
+                class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
+                :class="item.class ?? ''"
+                :placeholder="item.place"
+                v-model="forms[item.model]"
+                readonly
+              />
+            </div>
+            <!-- //type email -->
+            <div v-else-if="item.type == 'email'">
+              <input
+                type="email"
+                class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
+                :placeholder="item.place"
+                v-model="forms[item.model]"
+                :required="item.required"
+                @change="item.change ? change(item.change) : null"
+              />
+            </div>
+            <!-- //type textarea -->
+            <div v-else-if="item.type == 'textarea'">
+              <textarea
+                class="border border-gray-300 rounded outline-none p-2 w-full mt-2"
+                :placeholder="item.place"
+                v-model="forms[item.model]"
+                :required="item.required"
+                @change="item.change ? change(item.change) : null"
+              ></textarea>
+            </div>
+            <div v-else-if="item.type == 'number'">
+              <input
+                type="text"
+                class="custom-input border border-gray-300 rounded outline-none p-2 w-full mt-2"
+                @keypress="isNumber"
+                @blur="item.format ? $emit(item.formatAction, item.model) : ''"
+                v-model="forms[item.model]"
+                :required="item.required"
+                :placeholder="item.place"
+                inputmode="number"
+              />
+            </div>
+            <div v-else-if="item.type == 'select'">
+              <select
+                class="border border-gray-300 rounded outline-none p-2 w-full mt-2"
+                v-model="forms[item.model]"
+                @change="item.action ? change(item.action) : null"
+                :required="item.required"
+              >
+                <option
+                  disabled
+                  value=""
+                >{{ item.place ? item.place : "Pilih Opsi" }}</option>
+                <option
+                  v-for="items in item.list"
+                  :key="items[item.value]"
+                  :value="items[item.value]"
+                >
+                  {{ items[item.display] }}
+                </option>
+              </select>
+
+            </div>
+          </td>
+          <td
+            v-if="!hiden"
+            class="text-right pt-2"
+          >
+            <button
+              type="submit"
+              class="rounded-sm text-white p-2 shadow-md w-full"
+              :class="
+          disabled == false ? `bg-blue-500 ${submitclass}` : `bg-gray-400 ${submitclass}`
+        "
+              :disabled="disabled ?? false"
+            >
+              {{ submitname }}
+            </button>
+          </td>
+        </tr>
+      </tfoot>
     </table>
     <div v-if="paging">
       <Paging
@@ -223,13 +322,35 @@ import Paging from "./Paging.vue";
 import moment from "moment";
 import helper from "../controller/helper";
 export default {
-  mixins: [],
+  mixins: [helper],
   components: { Paging },
   props: {
     format: {
       type: Object,
       required: true,
+      default: {
+        header: [],
+        body: [],
+        action: [],
+      },
     },
+    //form mode
+    isForm: { type: Boolean, default: false },
+    forms: { type: Object, default: {} },
+    form: { type: Object, default: [] },
+    action: { type: String, default: "" },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    hiden: {
+      type: Boolean,
+      default: false,
+    },
+    submitname: { type: String, default: "Submit" },
+    submitclass: { type: String, default: "" },
+
+    //table components
     list: { type: Array, required: true },
     page: { type: Number, default: 1 },
     per_page: { type: Number, default: 1 },
@@ -283,8 +404,11 @@ export default {
       clearTimeout(this.debounceTimeout);
       this.debounceTimeout = setTimeout(async () => {
         await this.$emit(this.searchAction, this.keywords);
-        this.keywords = ""; // Reset only after search completes
+        this.keywords = "";
       }, 300);
+    },
+    async change(action) {
+      this.$emit(action, this.forms);
     },
   },
   data() {
