@@ -22,7 +22,7 @@
               {{ selected.title ?? "Not Found" }}
             </h3>
             <button
-              class="text-red-500 p-4"
+              :class="closeClass ? closeClass :'text-red-500 p-4'"
               @click="close"
             >X</button>
           </div>
@@ -35,7 +35,10 @@
           </div>
 
           <!--footer-->
-          <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <div
+            v-if="selected.footer"
+            class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b"
+          >
             <component :is="selected.footer" />
           </div>
         </div>
@@ -56,6 +59,7 @@ export default {
     headClass: { type: String, default: "" },
     bodyClass: { type: String, default: "" },
     customClass: { type: String, default: "" },
+    closeClass: { type: String, default: "" },
     status: { type: Boolean, default: false },
     size: { type: String, default: "full" },
     selected: {
