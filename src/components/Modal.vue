@@ -4,7 +4,16 @@
       v-if="status"
       class="w-full overflow-x-hidden overflow-y-auto max-h-screen fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center flex"
     >
-      <div class="relative w-full my-10 mx-4 max-w-5xl overflow-y-auto max-h-screen">
+      <div
+        class="relative my-10 mx-4 transition-all"
+        :class="[
+    'bg-white rounded-lg shadow-lg overflow-y-auto max-h-screen',
+    size === 'full' ? 'w-full' :
+    size === 'xl' ? 'w-4/5' :
+    size === 'md' ? 'w-1/2' :
+    size === 'sm' ? 'w-1/4' : ''
+  ]"
+      >
         <!--content-->
         <div class="border-0 rounded-lg shadow-lg bg-white outline-none focus:outline-none">
           <!--header-->
@@ -48,6 +57,7 @@ export default {
     bodyClass: { type: String, default: "" },
     customClass: { type: String, default: "" },
     status: { type: Boolean, default: false },
+    size: { type: String, default: "full" },
     selected: {
       type: Object,
       default: {
